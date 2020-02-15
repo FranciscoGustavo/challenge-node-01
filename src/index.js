@@ -1,17 +1,25 @@
-const prompt = require('prompt')
+/* eslint-disable no-console */
+const prompt = require('prompt');
+const getDataFromGithub = require('./utils/getDataFromGithub');
 
-const count = 1
+//const count = 1;
 
-const prompt_attributes = [{
+const promptAttributes = [{
   name: 'githubUser',
-}]
+}];
 
-prompt.get(prompt_attributes, (err, result) => {
+prompt.get(promptAttributes, (err, result) => {
   if (err) {
-    console.log(err);
+    console.log('[prompt]', err.message);
     return 1;
   }
-  console.log('Command-line received data:');
-})
 
-prompt.start()
+  if (!result.githubUser) {
+    console.log('[Property githubUser is]: ', result.githubUser);
+    return 1;
+  }
+  console.log('[Command-line received data]:', result);
+  getDataFromGithub('FranciscoGustavo');
+});
+
+prompt.start();
